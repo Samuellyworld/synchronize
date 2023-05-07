@@ -1,0 +1,18 @@
+{
+  "name": "synchronize",
+  "version": "1.0.0",
+  "description": "a way to synchronize backend and frontend with commit hash",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "install-server": "cd server && npm install",
+    "install-client": "npm install --prefix client",
+    "install-app": "npm run install-client && npm run install-server",
+    "server": "cd server && npm run dev",
+    "client" : "npm start --prefix client",
+    "dev" : "npm run server & npm run client",
+    "deploy" : "npm run build --prefix client && npm run dev --prefix server"
+  },
+  "author": "samuel aspirin",
+  "license": "MIT"
+}
