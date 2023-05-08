@@ -1,4 +1,5 @@
 ## Synchronize
+
 When developing a web application, you may come into scenarios in which the backend has been updated but the frontend has not been updated owing to browser caching. This can lead to application failures and inconsistencies. To synchronize the frontend and backend, one method is to utilize a hash value.
 
 A hash value is a unique identifier that represents the content of a file or an object. By using a hash value, you can ensure that the frontend and backend are synchronized, even if they are cached.
@@ -62,7 +63,7 @@ here is what the controller looks like, this is technically reading the hash txt
 ```
 export const commitHash = async (req: Request, res : Response) => {
     const commitHash = fs.readFileSync(path.join(__dirname, "..", "..", 'client', 'dist', 'commit-hash.txt'), 'utf-8').trim();
-    // send to client
+    // send to a response client
     res.status(200).json({
       commitHash 
     })
@@ -72,7 +73,7 @@ export const commitHash = async (req: Request, res : Response) => {
 - in the client's `app.tsx`, we compare the hash value of `.env` from the client and what the hash the server is responding with.
 
 ```
-  // get hash from server
+  // get hash from server by sending a request
   useEffect(() => {
     fetch('http://localhost:8000/api/v1/hash')
       .then(response => response.json())
