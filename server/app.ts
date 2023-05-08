@@ -4,7 +4,7 @@ import cors from "cors";
 import morgan from "morgan";
 
 // import routes
-
+import { hashRouter } from "./routes/commit-hash.route";
 
 // start an express server;
 export const app = express();
@@ -20,3 +20,4 @@ app.get("/", (req : Request, res : Response) => {
 });
 
 // commit hash route endpoint
+app.use('/api/v1', hashRouter);
