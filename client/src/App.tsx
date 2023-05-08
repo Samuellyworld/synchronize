@@ -1,9 +1,32 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import reactLogo from './assets/react.svg'
 import viteLogo from '/vite.svg'
+const VITE_APP_COMMIT_HASH = import.meta.env.VITE_APP_COMMIT_HASH
 
 function App() {
-  const [count, setCount] = useState(0)
+  const [count, setCount] = useState(0);
+
+  // set commit hash
+  const [commitHash, setCommitHash]  = useState(null);
+
+  // get hash from server
+  useEffect(() => {
+    fetch('http://localhost:8000/api/v1/hash')
+      .then(response => response.json())
+      .then(data => {
+        setCommitHash(data?.commitHash);
+        console.log(data)
+      });
+  }, []);
+
+  // check if hash from server is the same with client
+  useEffect(() => {
+    const localCommitHash = VITE_APP_COMMIT_HASH;
+     console.log(localCommitHash)
+    if (commitHash && localCommitHash && commitHash !== localCommitHash) {
+      alert('A new version of the app is available. Please refresh the page to get the latest version.');
+    }
+  }, [commitHash]);
 
   return (
     <div className="App">
